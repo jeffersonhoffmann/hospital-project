@@ -1,0 +1,19 @@
+.aberto {
+    color: #D6B85A;
+  }
+  .rejeitadoCancelado {
+    color: red;
+  }
+  .recolhido {
+    color: gray;
+  }
+  .aguardandoPagamento {
+    color: blue;
+  }
+  .pago {
+    color: orange;
+  }
+  .finalizado {
+    color: green;
+  }
+  

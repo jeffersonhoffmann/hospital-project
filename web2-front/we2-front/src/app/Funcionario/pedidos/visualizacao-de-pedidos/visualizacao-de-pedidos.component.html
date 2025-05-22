@@ -1,0 +1,121 @@
+<div class="container mt-5">
+  <div class="card shadow round">
+    <div class="card-header bg-light">
+      <h1 class="mb-0 text-center">Todos os Pedidos</h1>
+    </div>
+    <div class="card-body">
+      <div class="row justify-content-center mb-4">
+        <form>
+          <div class="col-12">
+            <div class="row justify-content-center mb-2">
+              <div class="col-12 col-md-4 form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="filter"
+                  value="TODOS_PEDIDOS"
+                  id="filterTodos"
+                />
+                <label class="form-check-label" for="filterTodos">Todos Pedidos</label>
+              </div>
+              <div class="col-12 col-md-4 form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="filter"
+                  value="PEDIDO_HOJE"
+                  id="filterHoje"
+                />
+                <label class="form-check-label" for="filterHoje">Pedidos de Hoje</label>
+              </div>
+              <div class="col-12 col-md-4 form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="filter"
+                  value="PEDIDOS_DATA"
+                  id="filterPeriodo"
+                />
+                <label class="form-check-label" for="filterPeriodo">Pedidos por Período</label>
+                <div class="d-flex align-items-center mt-2">
+                  <input type="datetime-local" id="dataInicio" class="form-control mr-2">
+                  <input type="datetime-local" id="dataFim" class="form-control">
+                </div>
+              </div>
+            </div> 
+          </div>
+        </form>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th style="width:5%">Nº</th>
+              <th style="width:10%">Data de Abertura</th>
+              <th style="width:10%">Roupas</th>
+              <th style="width:10%">Prazo</th>
+              <th style="width:5%">Status</th>
+              <th style="width:5%">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pedido of pedidosTodos" [ngSwitch]="pedido?.status">
+              <td>{{pedido.id}}</td>
+              <td>{{pedido.dataPedido | date:'dd/MM/yyyy HH:mm'}}</td>
+              <td>
+                <ul>
+                  <li *ngFor="let roupa of pedido.roupas">
+                    {{roupa.nome}}, {{roupa.quantidade}}
+                  </li>
+                </ul>
+              </td>
+              <td>{{pedido.prazo | date:'dd/MM/yyyy'}}</td>
+              <td [ngStyle]="getColor(pedido)">{{pedido.status}}</td>
+              <td *ngSwitchCase="status.EM_ABERTO">
+                <button 
+                  class="btn btn-primary btn-sm mb-1 ml-1"
+                  (click)="confirmarRecolhimento(pedido.id)"
+                  title="confirmar recolhimento"
+                  alt="Recolhido"
+                >
+                  <i class="fa fa-truck"></i>
+                </button>
+              </td>
+              <td *ngSwitchCase="status.RECOLHIDO">
+                <button 
+                  class="btn btn-primary btn-sm mb-1 ml-1"
+                  (click)="confirmarLavagem(pedido.id)"
+                  title="confirmar lavagem"
+                  alt="Confirmar Lavagem"
+                >
+                  <i class="fa fa-bath"></i>
+                </button>
+              </td>
+              <td *ngSwitchCase="status.AGUARDANDO_PAGAMENTO">
+                <button 
+                  type="submit"
+                  class="btn btn-primary btn-sm mb-1 ml-1"
+                  (click)="confirmarPagamento(pedido.id)"
+                  title="confirmar pagamento"
+                >
+                  <i class="fas fa-dollar-sign"></i>
+                </button>
+              </td>
+              <td *ngSwitchCase="status.PAGO">
+                <button 
+                  class="btn btn-primary btn-sm mb-1 ml-1"
+                  (click)="finalizarPedido(pedido.id)"
+                  title="finalizar pedido"
+                  alt="Finalizar"
+                >
+                  <i class="fa fa-user-check"></i>
+                </button>
+              </td>
+              <td *ngSwitchDefault></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

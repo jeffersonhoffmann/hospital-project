@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="login.component.css">
+</head>
+<body>
+  <div class="container-fluid d-flex flex-column flex-md-row">
+    <div class="left-section col-md-6 d-flex flex-column justify-content-center p-4">
+      <h2><span class="highlight">POUPE TEMPO</span> E UTILIZE NOSSOS SERVIÇOS</h2>
+      <ul class="list-unstyled">
+        <li>Faça <strong>orçamentos</strong> em minutos</li>
+        <li><strong>Economize tempo</strong> com nossa lavanderia</li>
+        <li>Acompanhe <strong>pedidos</strong> a um clique</li>
+      </ul>
+      <div class="image-container mt-4">
+        <img src="assets/laundryfront.png" alt="Imagem Lavanderia Online" class="img-fluid">
+      </div>
+    </div>
+    <div class="right-section col-md-6 d-flex justify-content-center align-items-center p-4">
+      <div class="login-box w-100">
+        <h2>Acesse sua conta</h2>
+        <form #formLogin="ngForm" (ngSubmit)="logar()">
+          <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input 
+              type="email"
+              class="form-control p-4"
+              id="email"
+              name="email"
+              placeholder="E-mail"
+              [(ngModel)]="login.email"
+              #email="ngModel"
+              required
+              email
+            />
+            <div 
+              *ngIf="email.errors && (email.dirty || email.touched)" 
+              class="alert alert-danger">
+              <div [hidden]="!email.errors['required']">Por favor, digite seu email</div>
+              <div [hidden]="!email.errors['email']">Por favor, digite um email válido</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Senha:</label>
+            <input 
+              type="password" 
+              class="form-control p-4" 
+              id="senha"
+              name="senha"
+              placeholder="Senha" 
+              [(ngModel)]="login.senha"
+              #senha="ngModel"
+              required
+              minlength="6"
+            />
+            <div 
+              *ngIf="senha.errors && (senha.dirty || senha.touched)" 
+              class="alert alert-danger">
+              <div [hidden]="!senha.errors['required']">Por favor, digite sua senha</div>
+              <div [hidden]="!senha.errors['minlength']">A senha deve conter ao menos 6 caracteres</div>
+            </div>
+          </div>
+
+          <button 
+            class="btn btn-primary py-3 px-5" 
+            type="submit" 
+            id="entrarBotao"
+            [disabled]="!formLogin.form.valid"
+            (click)="logar()"
+          >
+            Entrar
+          </button>
+        </form>
+        <a href="#" class="d-block mt-3 forgot-password">Esqueci minha senha</a>
+        <p class="mt-3">Não possui conta? <a href="#" (click)="onSignUpClick()">Cadastre-se.</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="overlay" *ngIf="showAutocadastro">
+    <app-autocadastro (close)="closeAutocadastro()"></app-autocadastro>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

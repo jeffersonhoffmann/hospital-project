@@ -1,0 +1,54 @@
+<div class="container mt-5">
+  <div class="card shadow round">
+    <div class="card-header bg-light">
+      <h1 class="mb-0 text-center">Pedidos em Aberto</h1>
+    </div>
+    <div class="card-body">
+      <div class="d-flex justify-content-end mb-3">
+        <p class="mr-3"><strong>Status do Pedido:</strong> Em Aberto</p>
+      </div>
+      <div class="card shadow round">
+        <div class="card-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th style="width:5%">Nº</th>
+                <th style="width:10%">Data de Abertura</th>
+                <th style="width:10%">Roupas</th>
+                <th style="width:10%">Prazo</th>
+                <th style="width:5%">Status</th>
+                <th style="width:5%">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pedido of pedidos" [ngSwitch]="pedido?.status">
+                <td>{{pedido.id}}</td>
+                <td>{{pedido.dataPedido | date:'dd/MM/yyyy HH:mm'}}</td>
+                <td>
+                  <ul>
+                    <li *ngFor="let roupa of pedido.roupas">
+                      {{roupa.nome}}, {{roupa.quantidade}}
+                    </li>
+                  </ul>
+                </td>
+                <td>{{pedido.prazo | date:'dd/MM/yyyy'}}</td>
+                <td [ngStyle]="getColor(pedido)">{{pedido.status}}</td>
+                <td *ngSwitchCase="status.EM_ABERTO">
+                  <button 
+                    class="btn btn-primary btn-sm mb-1 ml-1"
+                    (click)="confirmarRecolhimento(pedido.id)"
+                    title="confirmar recolhimento"
+                    alt="Recolhido"
+                  >
+                    <i class="fa fa-truck"></i>
+                  </button>
+                </td>
+                <td *ngSwitchDefault></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

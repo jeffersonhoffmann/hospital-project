@@ -1,0 +1,65 @@
+<div class="container mt-5">
+  <div class="card shadow round">
+    <div class="card-header bg-light text-center">
+      <h1 class="mb-0">Consulta de Pedidos</h1>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="pesquisa(busca)">
+        <div class="form-group d-flex flex-column align-items-center mb-4">
+          <input 
+            #busca
+            type="text" 
+            class="form-control mb-3"
+            placeholder="Pesquisar"
+            (keyup.enter)="pesquisa(busca.value)"
+          />
+          <div class="d-flex">
+            <button
+              (click)="pesquisa(busca.value)"
+              class="btn btn-primary py-2 px-4"
+              type="button"
+            >
+              Pesquisar
+            </button>
+            <button
+              *ngIf="resultadoBusca.length > 0"
+              (click)="limparPesquisa()"
+              class="btn btn-secondary py-2 px-4 ml-2"
+              type="button"
+            >
+              Limpar Pesquisa
+            </button>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Nº do Pedido</th>
+                <th>Peças</th>
+                <th>Previsão de Entrega</th>
+                <th>Status</th>
+                <th>Preço</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pedido of resultadoBusca">
+                <td>{{ pedido.id }}</td>
+                <td>
+                  <ul class="list-unstyled">
+                    <li *ngFor="let roupa of pedido.roupas">
+                      {{ roupa.nome }}, {{ roupa.quantidade }}
+                    </li>
+                  </ul>
+                </td>
+                <td>{{ pedido.prazo | date: 'fullDate': '' : 'pt-BR' }}</td>
+                <td [ngStyle]="getColor(pedido)">{{ pedido.status | uppercase }}</td>
+                <td>{{ pedido.precoTotal | currency: 'BRL' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

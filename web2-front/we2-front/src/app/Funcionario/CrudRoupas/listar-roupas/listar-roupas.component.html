@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Peças de Roupa</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow round">
+            <div class="card-header bg-light">
+                <h1 class="mb-0 text-center">Peças de Roupa</h1>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-end mb-3">
+                    <a [routerLink]="['/dashboard-funcionario/roupas/novo']" href="#" title="Novo" alt="Novo" class="btn btn-success">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Novo
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Prazo</th>
+                                <th>Valor Unitário</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let roupa of roupas">
+                                <td>{{roupa.nome}}</td>
+                                <td>{{roupa.prazo}}</td>
+                                <td>{{roupa.preco}}</td>
+                                <td class="text-center">
+                                    <a [routerLink]="['/dashboard-funcionario/roupas/editar', roupa.id]" href="#" title="Editar" alt="Editar" class="btn btn-info btn-sm">
+                                        <i class="fa fa-edit" aria-hidden="true"></i> Editar
+                                    </a>
+                                    <a href="#" title="Remover" alt="Remover" class="btn btn-danger btn-sm ml-2"
+                                        (click)="remover($event, roupa)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i> Excluir
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p *ngIf="roupas.length == 0" class="text-center">Nenhuma peça cadastrada.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incluir Angular e seus scripts -->
+</body>
+</html>

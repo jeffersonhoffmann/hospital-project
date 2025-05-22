@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-5">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulário de Cadastro</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="overlay" (click)="onClose()"></div>
+    <div class="form-container" (click)="$event.stopPropagation()">
+    <div class="container-fluid p-4 shadow-lg rounded w-full lg:w-6" style="margin: auto">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 mb-5">
+          <div class="card shadow round mt-5">
+            <div class="card-header">
+              <h3 class="text-center">Cadastro</h3>
+            </div>
+            <div class="card-body">
+              <div id="success"></div>
+              <form #formCadastro="ngForm" novalidate>
+                <div class="form-group">
+                  <label for="cpf" class="block text-900 font-medium mb-2"
+                    >CPF</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="cpf"
+                    placeholder="CPF"
+                    required
+                    mask="000.000.000-99"
+                    data-validation-required-message="Por favor, digite seu CPF"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="nome" class="block text-900 font-medium mb-2"
+                    >Nome</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nome"
+                    placeholder="Seu nome"
+                    required
+                    data-validation-required-message="Por favor, digite seu nome"
+                  />
+                  <div
+                    *ngIf="nome.invalid && (nome.dirty || nome.touched)"
+                    class="text-danger"
+                  >
+                    <div *ngIf="nome.errors?.required">
+                      O nome é obrigatório.
+                    </div>
+                    <div *ngIf="nome.errors?.minlength">
+                      O nome deve ter pelo menos 2 letras.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="email" class="block text-900 font-medium mb-2"
+                    >Email</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    placeholder="Seu email"
+                    required
+                    mask=""
+                    data-validation-required-message="Por favor, digite seu email"
+                  />
+                  <div
+                    *ngIf="email.invalid && (email.dirty || email.touched)"
+                    class="text-danger"
+                  >
+                    <div *ngIf="email.errors?.required">
+                      O email é obrigatório.
+                    </div>
+                    <div *ngIf="email.errors?.email">
+                      Digite um email válido.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="telefone" class="block text-900 font-medium mb-2"
+                    >Telefone</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="telefone"
+                    placeholder="Seu telefone"
+                    required
+                    mask="(00)00000-0000"
+                    data-validation-required-message="Por favor, digite seu telefone"
+                  />
+                  <div
+                    *ngIf="
+                      telefone.invalid && (telefone.dirty || telefone.touched)
+                    "
+                    class="text-danger"
+                  >
+                    <div *ngIf="telefone.errors?.required">
+                      O telefone é obrigatório.
+                    </div>
+                    <div *ngIf="telefone.errors?.pattern">
+                      Digite um telefone válido.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="cep" class="block text-900 font-medium mb-2"
+                    >CEP</label
+                  >
+                  <input
+                  type="text"
+                  class="form-control p-4"
+                  id="cep"
+                  name="cep"
+                  placeholder="Seu CEP"
+                  mask="XXXXX-XXX"
+                  [(ngModel)]="endereco.cep"
+                  #cep="ngModel"
+                  required
+                  />
+            <div
+              *ngIf="cep.invalid && (cep.dirty || cep.touched)"
+              class="alert alert-danger">
+              <div [hidden]="!cep.errors?.['required']">Por favor, preencha seu CEP</div>
+              <div [hidden]="!cep.errors?.['mask']">Por favor, preencha seu CEP</div>
+            </div>
+          </div>
+          <div class="col text-center align-self-center">
+            <button
+              class="btn btn-primary py-2 px-5"
+              type="button"
+              (click)="buscaEndereco()"
+              [disabled]="cep.invalid"
+            >
+              Pesquisar endereço
+                  </button>
+                </div>
+
+                <div class="row">
+                  <div class="col-2">
+                    <label for="numero">Número:</label>
+                    <input
+                      type="number"
+                      placeholder="Número"
+                      class="form-control p-4"
+                      id="numero"
+                      name="numero"
+                      [(ngModel)]="endereco.numero"
+                      #numero="ngModel"
+                      required
+                      min="1"
+                    />
+                    <div
+                      *ngIf="numero.invalid && (numero.dirty || numero.touched)"
+                      class="alert alert-danger"
+                    >
+                      <div [hidden]="!numero.errors?.['required']">
+                        Por favor, preencha o número do endereço
+                      </div>
+                      <div [hidden]="!numero.errors?.['min']">
+                        Por favor, preencha um número positivo
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-10">
+                    <label for="rua">Rua:</label>
+                    <input
+                      type="text"
+                      placeholder="Rua"
+                      class="form-control p-4"
+                      id="rua"
+                      name="rua"
+                      [(ngModel)]="endereco.rua"
+                      #rua="ngModel"
+                      required
+                      readonly
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-2">
+                    <label for="estado">Estado:</label>
+                    <input
+                      type="text"
+                      placeholder="UF"
+                      class="form-control p-4"
+                      id="estado"
+                      name="estado"
+                      [(ngModel)]="endereco.estado"
+                      #estado="ngModel"
+                      required
+                      readonly
+                    />
+                  </div>
+                  <div class="col">
+                    <label for="cidade">Cidade:</label>
+                    <input
+                      type="text"
+                      placeholder="Cidade"
+                      class="form-control p-4"
+                      id="cidade"
+                      name="cidade"
+                      [(ngModel)]="endereco.cidade"
+                      #cidade="ngModel"
+                      required
+                      readonly
+                    />
+                  </div>
+                  <div class="col">
+                    <label for="bairro">Bairro:</label>
+                    <input
+                      type="text"
+                      placeholder="Bairro"
+                      class="form-control p-4"
+                      id="bairro"
+                      name="bairro"
+                      [(ngModel)]="endereco.bairro"
+                      #bairro="ngModel"
+                      required
+                      readonly
+                    />
+                  </div>
+                </div>
+                <br>
+                <div class="form-group">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    [disabled]="!cadastroForm.valid"
+                  >
+                    Cadastrar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </body>
+</html>

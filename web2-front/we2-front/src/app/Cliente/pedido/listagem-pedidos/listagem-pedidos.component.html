@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pedidos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="card shadow round">
+    <div class="card-header bg-light">
+      <h1 class="mb-0 text-center">Pedidos</h1>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="d-flex justify-content-end mb-3">
+          <div class="row">
+            <div class="col-2 form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="filter"
+                value="EM_ABERTO"
+              />
+              <label class="form-check-label">Aberto</label>
+            </div>
+            <div class="col-2 form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="filter"
+                value="AGUARDANDO_PAGAMENTO"
+              />
+              <label class="form-check-label">Aguardando Pagamento</label>
+            </div>
+            <div class="col-2 form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="filter"
+                value="PAGO"
+              />
+              <label class="form-check-label">Pago</label>
+            </div>
+            <div class="col-2 form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="filter"
+                value="FINALIZADO"
+              />
+              <label class="form-check-label">Finalizado</label>
+            </div>
+            <div class="col-2 form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="filter"
+                value="CANCELADO"
+              />
+              <label class="form-check-label">Cancelado</label>
+            </div>
+            <div class="col-2 form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="filter"
+                value="REJEITADO"
+              />
+              <label class="form-check-label">Rejeitado</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center mb-3">
+          <button class="btn btn-primary btn-sm mr-2" type="button">Aplicar</button>
+          <button class="btn btn-secondary btn-sm" type="button">Limpar filtro</button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Nº</th>
+                <th>Peças</th>
+                <th>Data retirada</th>
+                <th>Data entrega</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pedido of pedidos" [ngSwitch]="pedido.status">
+                <td>{{pedido.id}}</td>
+                <td>{{pedido.roupas}}</td>
+                <td>{{pedido.dataPedido}}</td>
+                <td>{{pedido.prazo}}</td>
+                <td *ngSwitchCase="'Aberto'" class="aberto">{{pedido.status}}</td>
+                <td *ngSwitchCase="'Aberto'">
+                  <a href="#" title="Remover" alt="Remover" class="btn btn-sm btn-danger" (click)="remover(pedido.id)">
+                    <i class="fa fa-trash" aria-hidden="true"></i> Cancelar
+                  </a>
+                </td>
+                <td *ngSwitchCase="'Rejeitado'" class="rejeitadoCancelado">{{pedido.status}}</td>
+                <td *ngSwitchCase="'Rejeitado'"></td>
+                <td *ngSwitchCase="'Cancelado'" class="rejeitadoCancelado">{{pedido.status}}</td>
+                <td *ngSwitchCase="'Cancelado'"></td>
+                <td *ngSwitchCase="'Recolhido'" class="recolhido">{{pedido.status}}</td>
+                <td *ngSwitchCase="'Recolhido'"></td>
+                <td *ngSwitchCase="'Aguardando Pagamento'" class="aguardandoPagamento">{{pedido.status}}</td>
+                <td *ngSwitchCase="'Aguardando Pagamento'">
+                  <a href="pagamento-pedido" class="btn btn-primary btn-sm" title="Confirmar pagamento" (click)="confirmarPagamento(pedido.id)">
+                    <i class="fas fa-dollar-sign"></i>
+                  </a>
+                </td>
+                <td *ngSwitchCase="'Pago'" class="pago">{{pedido.status}}</td>
+                <td *ngSwitchCase="'Pago'"></td>
+                <td *ngSwitchCase="'Finalizado'" class="finalizado">{{pedido.status}}</td>
+                <td *ngSwitchCase="'Finalizado'"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<div class="container mt-5">
+  <div class="card shadow round">
+    <div class="card-header bg-light">
+      <h1 class="mb-0 text-center">Relatório de Receitas</h1>
+    </div>
+    <div class="card-body">
+      <form class="mb-3">
+        <div class="form-row">
+          <div class="col-auto">
+            <label for="dataInicial">Data inicial:</label>
+            <input type="date" id="dataInicial" name="dataInicial" class="form-control form-control-sm">
+          </div>
+          <div class="col-auto">
+            <label for="dataFinal">Data final:</label>
+            <input type="date" id="dataFinal" name="dataFinal" class="form-control form-control-sm">
+          </div>
+          <div class="col-auto align-self-end">
+            <button class="btn btn-primary btn-sm" type="button" onclick="filterByDate()">Filtrar</button>
+          </div>
+        </div>
+      </form>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped" #content>
+          <thead>
+            <tr>
+              <th style="width:10%">Data</th>
+              <th style="width:10%">Valor Recebido</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let receita of receitas">
+              <td>{{ receita.data }}</td>
+              <td>{{ receita.valorRecebido}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-center mt-3">
+        <button class="btn btn-primary py-3 px-5" (click)="gerarRelatorioReceitas()">Gerar relatório de receitas da empresa</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Pedido de Lavanderia</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow-lg rounded">
+            <div class="card-header">
+                <h3 class="text-center">Pedido de Lavanderia - N° 12</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Roupa</th>
+                                <th>Prazo</th>
+                                <th>Quantidade</th>
+                                <th>Valor Unitário</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Camiseta</td>
+                                <td>2</td>
+                                <td>05</td>
+                                <td>R$ 5,00</td>
+                                <td>R$ 25,00</td>
+                            </tr>
+                            <tr>
+                                <td>Calça</td>
+                                <td>4</td>
+                                <td>02</td>
+                                <td>R$ 10,00</td>
+                                <td>R$ 20,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="container-fluid pt-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <p>O valor do pedido será de: <strong>R$ 130,00</strong></p>
+                            <p>O prazo para entrega é: <strong>6 dias</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-end">
+                <button class="btn btn-primary" onclick="alert('O pedido nº 12 foi confirmado!')" type="button">
+                    Confirmar
+                </button>
+                <button class="btn btn-danger ml-2" onclick="alert('Seu pedido foi cancelado')" type="button">
+                    Rejeitar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incluir Angular e seus scripts -->
+</body>
+</html>
